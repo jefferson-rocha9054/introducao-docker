@@ -47,7 +47,8 @@ export class LivroController {
     @ApiResponse({ status: 400, description: "Dados inválidos" })
     @ApiParam({ name: 'id', type: String, description: 'Id do livro', example: "4f4e7edf-2c82-4a43-ab47-d49ed9d0cb0a" })
     async delete(@Param('id') id: string) {
-        return this.livrosService.remove(id)
+        return this.livrosService.remove
+        (id)
     }
 
 
