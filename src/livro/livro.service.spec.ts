@@ -40,8 +40,8 @@ describe("LivroService", () => {
 
     it("deve listar todos os livros", async () => {
         const boock = [
-            { nome: "moby dick", autor: "joao", lamcamento: 1897 },
-            { nome: "fuja", autor: "pedro", lamcamento: 2000 },
+            { nome: "moby dick", autor: "joao", lancamento: 1897 },
+            { nome: "fuja", autor: "pedro", lancamento: 2000 },
         ]
 
         mockPrisma.livros.findMany.mockResolvedValue(boock)
@@ -50,7 +50,7 @@ describe("LivroService", () => {
     })
 
     it("Deve monstra um livro pelo ID", async () => {
-        const boock = { id: 1, nome: "moby dick", autor: "joao", lamcamento: "1897" }
+        const boock = { id: 1, nome: "moby dick", autor: "joao", lancamento: "1897" }
 
         mockPrisma.livros.findUnique.mockResolvedValue(boock)
 
@@ -102,5 +102,14 @@ describe("LivroService", () => {
 
         await expect(service.remove('999')).rejects.toThrow();
     });
+
+    it("Deve lançar erro ao criar livro com dados inválidos", async () => {
+        mockPrisma.livros.create.mockRejectedValue(new Error('Erro de validação'));
+
+        await expect(service.create({ nome: "", autor: "", lancamento: 0 })).rejects.toThrow();
+    });
+
+
+
 
 })
